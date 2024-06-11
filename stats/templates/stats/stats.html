@@ -6,6 +6,7 @@
 #hero {
     display:flex;
     flex-direction:row;
+    flex-wrap:wrap;
 }
 {%endblock%}
 {%block content%}
@@ -15,6 +16,17 @@
     <div style="width:50%;height:50%">
         <canvas id="myChart2"></canvas>
     </div>
+    <div style="width:100%;height:50%;display:flex">
+        <div style="width:33.333%;">
+            <canvas id="myChart3"></canvas>
+        </div>
+        <div style="width:33.333%;">
+            <canvas id="myChart4"></canvas>
+        </div>
+        <div style="width:33.333%;">
+            <canvas id="myChart5"></canvas>
+        </div>
+    </div>
 {%endblock%}
 {%block postLoad%}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -23,6 +35,42 @@
   const ctx = document.getElementById('myChart');
   const c = document.getElementById('myChart');
   const ctx2 = document.getElementById('myChart2');
+  const ctx3 = document.getElementById('myChart3');
+  const ctx4 = document.getElementById('myChart4');
+  const ctx5 = document.getElementById('myChart5');
+  new Chart(ctx3, {
+    
+    data: {
+      labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+      datasets: [
+      {
+        type: 'line',
+        label: 'STD 12',
+        data: [77.1, 81.2, 80.4, 75.7, 81.8, 73.6],
+        borderWidth: 2,
+        borderColor:'#420696',
+        
+      },
+      {
+        type: 'line',
+        label: 'STD 12 goal',
+        data: [82, 82, 82, 82, 82, 82],
+        borderWidth: 2,
+        borderColor: '#420696',
+        borderDash:[5,10],
+      },
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: false,
+          min:50,
+          max:100,
+        }
+      }
+    }
+  });
     new Chart(
         ctx2,
         {
@@ -101,7 +149,7 @@
     options: {
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: false
         }
       }
     }
