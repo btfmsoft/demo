@@ -1,0 +1,114 @@
+{%load getItem%}
+<!DOCTYPE html>
+<html lang="en" style="width:100%;height:100%;">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <script>{% block scripts %}{% endblock %}</script>
+    <style>{% block styles %} {% endblock %}
+        * {
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+        #container {
+            display:flex;
+            flex-direction: row;
+            border:2px solid dodgerblue;
+            border-top-right-radius: 50px;
+            background-color: dodgerblue;
+        }
+        #top {
+            display:flex;
+            flex-direction: row-reverse;
+            height:50px;
+            width: 100%;
+            
+            
+        }
+        #right {
+            width:200px;
+            
+            
+        }
+        #main {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .navButton {
+            display: flex;
+            border-top-left-radius:8px;
+            border-top-right-radius: 8px;
+            border:2px solid black;
+            border-bottom: 1px solid black;
+            background-color: cornflowerblue;
+            height:100%;
+            width:50px;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+        }
+        .navButtonActive {
+            background-color: dodgerblue;
+            border-bottom: none;
+            cursor:default;
+        }
+        #hero {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+    
+        }
+        .navFiller {
+            flex-grow:1;
+            border-bottom:1px solid black;
+        }
+    </style>
+</head>
+<body style="width:100%;height:100%;background-color:lightgrey">
+    <div id = container style="width:100%;height:100%;border:1px solid black;">
+        <div id = "main">
+            <div id = "top">
+                {%for page in pages%}
+                <a href="{{links|getItem:forloop.counter0}}" alt="{{page}}">
+                    <div alt = {{page}} class="navButton {%if active == page%}navButtonActive{%endif%}">
+                        <span class="material-icons-outlined">{{icons|getItem:forloop.counter0}}</span>
+                    </div>
+                </a> 
+                {%endfor%}
+                <!-- <div class="navButton">
+                    <span class="material-icons-outlined">diamond</span>
+                </div>
+                <div class="navButton">
+                    <span class="material-icons-outlined">mail</span>
+                </div>
+                <div class="navButton">
+                    <span class="material-icons-outlined">groups</span>
+                </div>
+                <div class="navButton">
+                    <span class="material-icons-outlined">insights</span>
+                </div>
+                <div class="navButton">
+                    <span class="material-icons-outlined">person</span>
+                </div> -->
+                <div class = "navFiller"></div>
+            </div>
+            <div id = "hero">
+                {%block content%}
+                {%endblock%}
+            </div>
+        </div>
+        <div id = "right">
+            {%block sidebar%}
+            {%endblock%}
+        </div>
+    </div>
+</body>
+</html>
