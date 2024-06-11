@@ -17,7 +17,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from stats.views import stats
+from userProfile.views import profile
+from peerGroup.views import groups
+from learn.views import learn
+from inbox.views import inbox
+from gems.views import gems
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.index)
+    path('',views.index),
+    path('index',views.index),
+    path('learn',learn),
+    path('gems',gems),
+    path('groups',groups),
+    path('inbox',inbox),
+    path('stats',stats),
+    path('profile',profile),
 ]

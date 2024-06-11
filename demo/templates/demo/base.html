@@ -78,7 +78,7 @@
             <div id = "top">
                 {%for page in pages%}
                 <a href="{{links|getItem:forloop.counter0}}" alt="{{page}}">
-                    <div alt = {{page}} class="navButton {%if active == page%}navButtonActive{%endif%}">
+                    <div class="navButton {%if active == page%}navButtonActive{%endif%}">
                         <span class="material-icons-outlined">{{icons|getItem:forloop.counter0}}</span>
                     </div>
                 </a> 
