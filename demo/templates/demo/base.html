@@ -8,9 +8,9 @@
       rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{{active}}</title>
     <script>{% block scripts %}{% endblock %}</script>
-    <style>{% block styles %} {% endblock %}
+    <style>
         * {
             box-sizing:border-box;
             margin:0;
@@ -70,7 +70,11 @@
             flex-grow:1;
             border-bottom:1px solid black;
         }
+        {% block styles %} {% endblock %}
     </style>
+    {%block includes%}{%endblock%}
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
 </head>
 <body style="width:100%;height:100%;background-color:lightgrey">
     <div id = container style="width:100%;height:100%;border:1px solid black;">
@@ -83,21 +87,6 @@
                     </div>
                 </a> 
                 {%endfor%}
-                <!-- <div class="navButton">
-                    <span class="material-icons-outlined">diamond</span>
-                </div>
-                <div class="navButton">
-                    <span class="material-icons-outlined">mail</span>
-                </div>
-                <div class="navButton">
-                    <span class="material-icons-outlined">groups</span>
-                </div>
-                <div class="navButton">
-                    <span class="material-icons-outlined">insights</span>
-                </div>
-                <div class="navButton">
-                    <span class="material-icons-outlined">person</span>
-                </div> -->
                 <div class = "navFiller"></div>
             </div>
             <div id = "hero">
@@ -111,4 +100,6 @@
         </div>
     </div>
 </body>
+{%block postLoad%}
+{%endblock%}
 </html>
