@@ -4,6 +4,7 @@ def stats(request):
     pages = ['home','learn','gems','inbox','groups','stats','user profile']
     icons = ['home','school','diamond','mail','groups','insights','person']
     links = ['index','learn','gems','inbox','groups','stats','profile']
+    
     ctx = {
         'pages':pages,
         'icons':icons,

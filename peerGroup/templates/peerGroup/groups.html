@@ -1,4 +1,19 @@
 {%extends 'demo/base.html'%}
+{%load getItem%}
+{%block styles%}
+    .group {
+        width:100px;
+        height: 100px;
+        overflow: hidden;
+        border:1px solid black;
+    }
+{%endblock%}
 {%block content%}
-    groups woo!
+<div style="display: flex;justify-content:space-between; flex-direction:column;flex-wrap:wrap; width:100%; height: 100%">
+    {%for group in groups%}
+    <div class = 'group'>
+        {{ groups|getItem:group}} {{group}} message(s) waiting
+    </div>
+    {%endfor%}
+</div>
 {%endblock%}

@@ -19,9 +19,10 @@
         #container {
             display:flex;
             flex-direction: row;
-            border:2px solid dodgerblue;
+            border:2px solid white;
             border-top-right-radius: 50px;
-            background-color: dodgerblue;
+            border-top-left-radius: 50px;
+            background-color: #F8F5E1;
         }
         #top {
             display:flex;
@@ -47,7 +48,7 @@
             border-top-right-radius: 8px;
             border:2px solid black;
             border-bottom: 1px solid black;
-            background-color: cornflowerblue;
+            background-color: #f1d592;
             height:100%;
             width:50px;
             justify-content: center;
@@ -56,14 +57,16 @@
 
         }
         .navButtonActive {
-            background-color: dodgerblue;
+            background-color: #F8F5E1;
             border-bottom: none;
             cursor:default;
         }
         #hero {
             display: flex;
             flex-direction: column;
+            flex-wrap: wrap;
             flex-grow: 1;
+            justify-content:space-between;
     
         }
         .navFiller {
@@ -87,7 +90,9 @@
                     </div>
                 </a> 
                 {%endfor%}
-                <div class = "navFiller"></div>
+                <div class = "navFiller">
+                    <h2 style="padding:20px">Agent Name</h2>
+                </div>
             </div>
             <div id = "hero">
                 {%block content%}
