@@ -1,4 +1,5 @@
 {%extends 'demo/base.html'%}
+{%load getItem %}
 {%block includes%}
 
 {%endblock%}
@@ -32,6 +33,7 @@
     </div>
 {%endblock%}
 {%block postLoad%}
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
@@ -41,240 +43,26 @@
     const ctx3 = document.getElementById('myChart3');
     const ctx4 = document.getElementById('myChart4');
     const ctx5 = document.getElementById('myChart5');
-    new Chart(ctx1, {
     
-        data: {
-          labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-          datasets: [
-          {
-            type: 'line',
-            label: 'Overall Towback',
-            data: [7.1, 11.2, 8.4, 7.7, 11.8, 10.6],
-            borderWidth: 4,
-            borderColor:'#420696',
-            
-          },
-          {
-            type: 'line',
-            label: 'Overall goal',
-            data: [8.1, 8.1, 8.1, 8.1, 8.1, 8.1],
-            borderWidth: 2,
-            borderColor: '#420696',
-            borderDash:[5,10],
-          },
-          {
-            type: 'line',
-            label: 'Cor Towback',
-            data: [5.1, 6.2,4.4, 3.7, 7.8, 8.6],
-            borderWidth: 4,
-            borderColor:'#bfc0ee'
-          },
-          {
-            type: 'line',
-            label: 'Cor goal',
-            data: [5.5, 5.5, 5.5, 5.5, 5.5, 5.5],
-            borderWidth: 2,
-            borderColor: '#bfc0ee',
-            borderDash:[10,5],
-          },
-          ]
-        },
-        options: {
-            plugins:{
-                legend:{
-                    labels:{
-                        boxHeight:0,
-                    }
-                }
-            },
-          scales: {
-            y: {
-              beginAtZero: false
-            }
-          }
-        }
-      });
-    new Chart(ctx3, {
-            type:'line',
-            data:{
-                labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-                datasets: [{
-                    label:'Average Call Duration',
-                    data: [292,272,252,262,282,302],
-                },{
-                    label:'ACD Goal',
-                    data: [296,296,296,296,296,296],
-                    borderDash:[5,10],
-                }],
-            },
-            options: {
-                plugins:{
-                    legend:{
-                        labels:{
-                            boxHeight:0,
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        beginAtZero:true,
-                    },
-                    
-                }
-                }
-        });
-    new Chart(ctx2, {
+      {%for cd in cds%}
+      new Chart(ctx{{forloop.counter}}, {
         
         data: {
-        labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+        labels: [{%for label in cd|getItem:'data'|getItem:'labels'%}'{{label}}',{%endfor%}],
         datasets: [
+        {%for dataset in cd|getItem:'data'|getItem:'datasets'%}
         {
-            type: 'line',
-            label: 'STD 12',
-            data: [77.1, 81.2, 80.4, 75.7, 81.8, 73.6],
-            borderWidth: 4,
-            borderColor:'#420696',
-            
+            type:'{{dataset|getItem:'type'|default_if_none:'line'}}',
+            label: '{{dataset|getItem:'label'|default_if_none:''}}',
+            data: [{%for dp in dataset|getItem:'data'%}{{dp}},{%endfor%}],
+            borderDash: {{dataset|getItem:'borderDash'|default_if_none:'[1,0]'}},
         },
-        {
-            type: 'line',
-            label: 'STD 12 goal',
-            data: [82, 82, 82, 82, 82, 82],
-            borderWidth: 2,
-            borderColor: '#420696',
-            borderDash:[5,10],
-        },
-        ]
-        },
-        options: {
-            plugins:{
-                legend:{
-                    labels:{
-                        boxHeight:0,
-                    }
-                }
-            },
-        scales: {
-            y: {
-            beginAtZero: false,
-            min:65,
-            max:100,
-            }
+        {%endfor%}
+        ],},
+        options: {{cd|getItem:'options'|safe}}
         }
-        }
-    });
-    new Chart(ctx4, {
-        
-        data: {
-        labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-        datasets: [
-        {
-            type: 'line',
-            label: 'Adherence',
-            data: [94.1, 81.2, 80.4, 89.7, 91.8, 92.6],
-            borderWidth: 4,
-            borderColor:'#420696',
-            
-        },
-        {
-            type: 'line',
-            label: 'Adherence goal',
-            data: [92,92,92,92,92,92],
-            borderWidth: 2,
-            borderColor: '#420696',
-            borderDash:[5,10],
-        },
-        {
-          type: 'line',
-          label: 'Pacesetter',
-          data: [84.1, 91.2, 90.4, 86.7, 93.8, 94.6],
-          borderWidth: 4,
-          borderColor:'#bfc0ee'
-        },
-        {
-          type: 'line',
-          label: 'Pacesetter goal',
-          data: [92,92,92,92,92,92],
-          borderWidth: 2,
-          borderColor: '#bfc0ee',
-          borderDash:[10,5],
-        },
-        ]
-        },
-        options: {
-            plugins:{
-                legend:{
-                    labels:{
-                        boxHeight:0,
-                    }
-                }
-            },
-        scales: {
-            y: {
-            beginAtZero: false,
-            min:80,
-            max:100,
-            }
-        }
-        }
-    });
-    new Chart(ctx5, {
-        
-        data: {
-        labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-        datasets: [
-        {
-            type: 'line',
-            label: 'AME',
-            data: [0, 1, 3, 2, 0, 4],
-            borderWidth: 4,
-            borderColor:'#420696',
-            
-        },
-        {
-            type: 'line',
-            label: 'AME goal',
-            data: [1.5,1.5,1.5,1.5,1.5,1.5],
-            borderWidth: 2,
-            borderColor: '#420696',
-            borderDash:[5,10],
-        },
-        ]
-        },
-        options: {
-            plugins:{
-                legend:{
-                    labels:{
-                        boxHeight:0,
-                    }
-                }
-            },
-        scales: {
-            y: {
-            beginAtZero: true,
-            ticks: {
-                maxTicksLimit:4,
-                callback: ((context, index) => {
-                    let response;
-                    if(context==1) {
-                        response = 'Intermediate'
-                        
-                    } else if (context==2) {
-                        response = 'High Intermediate'
-                    } else if (context ==3) {
-                        response = 'Expert'
-                    } else {
-                        response = 'Foundational'
-                    }
-                    return response
-                })
-            },
-            min:0,
-            max:3,
-            }
-        }
-        }
-    });
+        );
+    {%endfor%}
     
 </script>
 {%endblock%}
